@@ -36,10 +36,10 @@ mas_rapido = min(tiempos, key=tiempos.get)
 print(f"\nEl método más rápido es: {mas_rapido}")
 
 # Ejemplo de respuesta
-'''
+"""
 Tiempo usando while: 0.125759 segundos
 Tiempo usando for: 0.038795 segundos
 Tiempo usando map: 0.029658 segundos
 
 El método más rápido es: map
-'''
+"""

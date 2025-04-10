@@ -10,6 +10,7 @@ class Perro:
     def descripcion(self):
         return f"{self.nombre} es un {self.raza} de {self.edad} años."
 
+
 # Ejemplo de uso
 if __name__ == "__main__":
     mi_perro = Perro("Fido", 3, "Labrador")
