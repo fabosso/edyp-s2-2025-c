@@ -8,6 +8,7 @@ class Producto:
     def __str__(self):
         return f"{self.nombre} (${self.precio})"
 
+
 # Clase CD que hereda de Producto
 class CD(Producto):
     def __init__(self, id, nombre, precio, artista, genero):
@@ -17,6 +18,7 @@ class CD(Producto):
 
     def __str__(self):
         return f"CD: {self.nombre} de {self.artista} - Género: {self.genero} (${self.precio})"
+
 
 # Clase Tienda que contiene productos
 class Tienda:

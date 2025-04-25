@@ -44,7 +44,7 @@ class Node:
 
     def get_data(self):
         return self.item
-    
+
     def __repr__(self):
         return str(self.item)
 

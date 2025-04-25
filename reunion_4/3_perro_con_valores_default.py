@@ -1,6 +1,8 @@
 class Perro:
     # Constructor
-    def __init__(self, nombre_constructor, edad_constructor = 0, raza_constructor = "Callejero"):
+    def __init__(
+        self, nombre_constructor, edad_constructor=0, raza_constructor="Callejero"
+    ):
         self.set_nombre(nombre_constructor)
         self.set_edad(edad_constructor)
         self.set_raza(raza_constructor)
@@ -36,6 +38,7 @@ class Perro:
     def descripcion(self):
         return f"{self.nombre} es un {self.raza} de {self.edad} años."
 
+
 # Ejemplo de uso
 if __name__ == "__main__":
     mi_perro = Perro("Fido", 3, "Labrador")
@@ -43,4 +46,4 @@ if __name__ == "__main__":
     print(mi_perro.ladrar())
 
     mi_otro_perro = Perro("Lassie")
-    print(mi_perro.descripcion())   # Lassie es un Callejero de 0 años.
+    print(mi_perro.descripcion())  # Lassie es un Callejero de 0 años.

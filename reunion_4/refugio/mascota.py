@@ -2,7 +2,7 @@ class Mascota:
 
     # Atributos de clase
     ids_usados = []
-    TIPOS = ["Perro", "Gato", "Tortuga"] # en mayúscula porque es CONSTANTE
+    TIPOS = ["Perro", "Gato", "Tortuga"]  # en mayúscula porque es CONSTANTE
 
     # Constructor
     def __init__(self, nombre, id, tipo, edad, disponibilidad):
@@ -88,8 +88,10 @@ class Mascota:
 
     # Representación user-friendly
     def __str__(self):
-        if (self.get_disponibilidad()):
-            return f"{self.nombre} ({self.tipo}), Edad: {self.edad} años, Disponible: Sí"
+        if self.get_disponibilidad():
+            return (
+                f"{self.nombre} ({self.tipo}), Edad: {self.edad} años, Disponible: Sí"
+            )
         return f"{self.nombre} ({self.tipo}), Edad: {self.edad} años, Disponible: No"
 
     # Representación técnica
@@ -116,7 +118,9 @@ if __name__ == "__main__":
 
     # Imprimir objetos usando __str__ y __repr__
     print(mascota1)  # Max (Perro), Edad: 3 años, Disponible: Sí
-    print(repr(mascota2))  # Mascota(nombre='Luna', id=102, tipo='Gato', edad=2, disponibilidad=False)
+    print(
+        repr(mascota2)
+    )  # Mascota(nombre='Luna', id=102, tipo='Gato', edad=2, disponibilidad=False)
 
     # Comparación con __eq__
     print(mascota1 == mascota3)  # True (ambos son "Perro")
@@ -148,4 +152,3 @@ if __name__ == "__main__":
         print(f"{mascota6.get_nombre()} creada con ID {mascota6.get_id()}")
     except ValueError as e:
         print(f"Error: {e}")
-
