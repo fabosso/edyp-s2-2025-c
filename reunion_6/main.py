@@ -34,7 +34,7 @@ def main():
     consultorio.asignar_turno("100", "123", "1", "12", "00")
     consultorio.imprimir_turnos()
     print("=====ENTREGAR TURNO 2 a las 10=====")
-    consultorio.asignar_turno("100", "345", "2", "10", "00") 
+    consultorio.asignar_turno("100", "345", "2", "10", "00")
     consultorio.imprimir_turnos()
     print("=====ATENDER TURNO 2=====")
     consultorio.atender_turno("345")
