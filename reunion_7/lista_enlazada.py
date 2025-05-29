@@ -1,5 +1,6 @@
 class Nodo:
-    """ Clase Nodo para la lista simplemente enlazada """
+    """Clase Nodo para la lista simplemente enlazada"""
+
     def __init__(self, dato):
         self._dato = dato
         self._sig = None
@@ -26,15 +27,16 @@ class Nodo:
 
 
 class ListaEnlazada:
-    """ Clase ListaEnlazada para la lista simplemente enlazada """
+    """Clase ListaEnlazada para la lista simplemente enlazada"""
+
     def __init__(self):
-        """ Todos los atributos de la clase son privados"""
+        """Todos los atributos de la clase son privados"""
         self._cabeza = None
         self._longitud = 0
         self._actual = None
 
     ##################################################
-    ''' Metodos publicos de la clase ListaEnlazada '''
+    """ Metodos publicos de la clase ListaEnlazada """
     ##################################################
 
     def append(self, dato):
@@ -100,7 +102,8 @@ class ListaEnlazada:
         raise NotImplementedError("El metodo index no esta implementado")
 
     ##################################################
-    ''' Metodos privados de la clase ListaEnlazada '''
+    """ Metodos privados de la clase ListaEnlazada """
+
     ##################################################
     def _esta_vacia(self):
         return self._get_cabeza() is None
@@ -153,7 +156,7 @@ class ListaEnlazada:
         return aux
 
     ##################################################
-    ''' Metodos magicos  de la clase ListaEnlazada '''
+    """ Metodos magicos  de la clase ListaEnlazada """
     ##################################################
 
     def __repr__(self):

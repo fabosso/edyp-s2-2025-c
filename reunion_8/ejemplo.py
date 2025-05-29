@@ -1,4 +1,5 @@
 import time
+
 # Lista grande
 lista_grande = list(range(1000000))
 set_grande = set(range(1000000))
