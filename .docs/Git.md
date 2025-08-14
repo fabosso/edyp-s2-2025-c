@@ -202,7 +202,7 @@ Para hacer esto, vamos a cerrar la carpeta abierta en Visual Studio Code haciend
 
 ![Screenshot 35.png](../.img/instructivo-git/Screenshot%2035.png)
 
-Vamos a abrir el link al repositorio que queremos clonar, por ejemplo, este mismo repositorio: [link al repositorio](https://github.com/cmaceira-itba/edyp-s1-2025-c)
+Vamos a abrir el link al repositorio que queremos clonar, por ejemplo, este mismo repositorio: [link al repositorio](https://github.com/fabosso/edyp-s2-2025-c)
 
 ![Screenshot 36.png](../.img/instructivo-git/Screenshot%2036.png)
 
