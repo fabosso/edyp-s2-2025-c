@@ -8,35 +8,75 @@ from Libro import Libro
 
 
 class Usuario:
-    """Clase que representa un usuario de la biblioteca"""
+    """
+    Clase que representa un usuario de la biblioteca.
+
+    Args:
+        nombre (str): Nombre del usuario
+        dni (str): DNI del usuario
+    """
 
     def __init__(self, nombre: str, dni: str):
-        """Constructor de la clase Usuario"""
+        """
+        Constructor de la clase Usuario.
+
+        Args:
+            nombre (str): Nombre del usuario
+            dni (str): DNI del usuario
+        """
         self.__nombre = nombre
         self.__dni = dni
         self.__libros_prestados: List['Libro'] = []  # Lista de objetos Libro actualmente prestados
 
     # Métodos getter
     def get_nombre(self) -> str:
-        """Obtiene el nombre del usuario"""
+        """
+        Obtiene el nombre del usuario.
+
+        Returns:
+            str: Nombre del usuario
+        """
         return self.__nombre
 
     def get_dni(self) -> str:
-        """Obtiene el DNI del usuario"""
+        """
+        Obtiene el DNI del usuario.
+
+        Returns:
+            str: DNI del usuario
+        """
         return self.__dni
 
     def get_libros_prestados(self) -> List[Libro]:
-        """Obtiene la lista de libros actualmente prestados (copia)"""
+        """
+        Obtiene la lista de libros actualmente prestados.
+
+        Returns:
+            List[Libro]: Lista de libros prestados (copia)
+        """
         return self.__libros_prestados.copy()
 
     # Métodos setter
     def set_nombre(self, nombre: str) -> None:
-        """Establece el nombre del usuario"""
+        """
+        Establece el nombre del usuario.
+
+        Args:
+            nombre (str): Nuevo nombre del usuario
+        """
         self.__nombre = nombre
 
     # Métodos de funcionalidad
     def pedir_libro_prestado(self, libro: Libro) -> None:
-        """Solicita el préstamo de un libro"""
+        """
+        Solicita el préstamo de un libro.
+
+        Args:
+            libro (Libro): Libro a prestar
+
+        Raises:
+            ValueError: Si el usuario ya tiene este libro prestado o no se puede prestar
+        """
         # Verificar que no tenga ya este libro prestado
         for libro_prestado in self.__libros_prestados:
             if libro_prestado.get_isbn() == libro.get_isbn():
@@ -50,7 +90,15 @@ class Usuario:
             raise ValueError(f"No se pudo prestar el libro: {e}")
 
     def devolver_libro_prestado(self, libro: Libro) -> None:
-        """Devuelve un libro prestado"""
+        """
+        Devuelve un libro prestado.
+
+        Args:
+            libro (Libro): Libro a devolver
+
+        Raises:
+            ValueError: Si el usuario no tiene este libro prestado o no se puede devolver
+        """
         if libro not in self.__libros_prestados:
             raise ValueError("El usuario no tiene este libro prestado.")
 
@@ -62,7 +110,12 @@ class Usuario:
             raise ValueError(f"No se pudo devolver el libro: {e}")
 
     def ver_libros_prestados(self) -> str:
-        """Muestra los libros actualmente prestados"""
+        """
+        Muestra los libros actualmente prestados.
+
+        Returns:
+            str: Representación de los libros prestados
+        """
         if not self.__libros_prestados:
             return "No tienes libros prestados actualmente"
 
@@ -76,5 +129,10 @@ class Usuario:
         return libros
 
     def __str__(self) -> str:
-        """Representación en cadena del usuario"""
+        """
+        Representación en cadena del usuario.
+
+        Returns:
+            str: Representación del usuario
+        """
         return f"{self.__nombre} (DNI: {self.__dni})"
