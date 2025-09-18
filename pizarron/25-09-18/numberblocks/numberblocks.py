@@ -186,13 +186,25 @@ def prueba_3():
     nb_7.personalidad()
 
 def prueba_4():
-    rb_invalido = Rebelblock(1, "violeta", ["maquiavelico"])
+    nb_7 = Numberblock(7, "naranja", ["honrado"])
+
+    nb_3 = Numberblock(3, "amarillo", ["curioso", "entusiasta"])
+    nb_4 = Numberblock(4, "verde", ["amable", "bueno"])
+
+    nb_7_comb = nb_3.combinar_con(nb_4)
+
+    Numberblock.personajes()
+
+    nb_7_comb.personalidad()
 
 def prueba_5():
+    rb_invalido = Rebelblock(1, "violeta", ["maquiavelico"])
+
+def prueba_6():
     rebelblock = Rebelblock(-1, "negro", ["triste"])
     rebelblock.replicar()
 
     Rebelblock.personajes()
 
 if __name__ == "__main__":
-    prueba_5()
+    prueba_6()
