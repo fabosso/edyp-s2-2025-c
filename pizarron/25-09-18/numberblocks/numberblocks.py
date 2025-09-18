@@ -75,26 +75,8 @@ class Numberblock:
         # Retorna True si la raiz cuadrada del valor es un número entero
         return raiz_cuadrada == int(raiz_cuadrada)
 
-    def __repr__(self) -> str:
-        presentacion = f"Soy el número {self.valor}, soy {self.color}."
-        if self.es_perfecto():
-            presentacion += " Soy un cuadrado perfecto."
-
-        return presentacion
-
     def replicar(self) -> Numberblock:
         return Numberblock(self.valor, self.color, self.atributos_personalidad)
-
-    def __eq__(self, other: Numberblock):
-        "Método necesario para establecer la igualdad de las réplicas"
-        if not isinstance(other, Numberblock):
-            return False
-
-        valores_iguales = self.valor == other.valor
-        colores_iguales = self.color == other.color
-        personalidades_iguales = set(self.atributos_personalidad) == set(other.atributos_personalidad)
-
-        return valores_iguales and colores_iguales and personalidades_iguales
 
 
     def combinar_con(self, other: Numberblock) -> Numberblock:
@@ -114,18 +96,36 @@ class Numberblock:
 
         return resultado
 
-    def personalidad(self):
+    def personalidad(self) -> None:
         for attr in self.atributos_personalidad:
             print(attr)
 
     @classmethod
-    def personajes(cls):
+    def personajes(cls) -> None:
         personajes_ordenados = dict(sorted(cls.registro.items()))
 
         for valor in personajes_ordenados:
             replicas_nb = personajes_ordenados[valor]
             nb_original = replicas_nb[0]
             print(f"#{valor}: '{nb_original}' - Réplicas: {len(replicas_nb)}")
+
+    def __repr__(self) -> str:
+        presentacion = f"Soy el número {self.valor}, soy {self.color}."
+        if self.es_perfecto():
+            presentacion += " Soy un cuadrado perfecto."
+
+        return presentacion
+
+    def __eq__(self, other: Numberblock):
+        "Método necesario para establecer la igualdad de las réplicas"
+        if not isinstance(other, Numberblock):
+            return False
+
+        valores_iguales = self.valor == other.valor
+        colores_iguales = self.color == other.color
+        personalidades_iguales = set(self.atributos_personalidad) == set(other.atributos_personalidad)
+
+        return valores_iguales and colores_iguales and personalidades_iguales
 
 
 class Rebelblock(Numberblock):
