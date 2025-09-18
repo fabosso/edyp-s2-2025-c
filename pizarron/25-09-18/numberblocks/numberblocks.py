@@ -87,8 +87,15 @@ class Numberblock:
 
     def __eq__(self, other: Numberblock):
         "Método necesario para establecer la igualdad de las réplicas"
-        print(self.__dict__)
-        return self.__dict__ == other.__dict__
+        if not isinstance(other, Numberblock):
+            return False
+
+        valores_iguales = self.valor == other.valor
+        colores_iguales = self.color == other.color
+        personalidades_iguales = set(self.atributos_personalidad) == set(other.atributos_personalidad)
+
+        return valores_iguales and colores_iguales and personalidades_iguales
+
 
     def combinar_con(self, other: Numberblock) -> Numberblock:
         if not isinstance(other, Numberblock):
