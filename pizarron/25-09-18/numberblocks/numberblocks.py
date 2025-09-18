@@ -12,61 +12,43 @@ class Validador:
     @classmethod
     def validar_entero(cls, valor: Any, nombre_campo: str = "Campo") -> int:
         """Valida que el valor sea un entero válido. Retorna el entero si es válido."""
-        if type(valor) != int:
+        if not isinstance(valor, int):
             raise ValidationError(
                 f"{nombre_campo} debe ser un número entero válido. Valor recibido: '{valor}'")
 
         return int(valor)
 
-    @classmethod
-    def validar_positivo(cls, valor: Any, nombre_campo: str = "Campo") -> int:
-        """Valida que el valor sea un entero positivo válido. Retorna el positivo si es válido."""
-        try:
-            cls.validar_entero(valor, nombre_campo)
-            if valor < 0:
-                raise ValidationError(
-                    f"{nombre_campo} debe ser un número positivo. Valor recibido: '{valor}'")
-            return int(valor)
-        except ValidationError:
-            raise ValidationError(
-                f"{nombre_campo} debe ser un número positivo. Valor recibido: '{valor}'")
-
-    @classmethod
-    def validar_negativo(cls, valor: Any, nombre_campo: str = "Campo") -> int:
-        """Valida que el valor sea un entero negativo válido. Retorna el negativo si es válido."""
-        try:
-            cls.validar_entero(valor, nombre_campo)
-            if valor >= 0:
-                raise ValidationError(
-                    f"{nombre_campo} debe ser un número negativo. Valor recibido: '{valor}'")
-            return int(valor)
-        except ValidationError:
-            raise ValidationError(
-                f"{nombre_campo} debe ser un número negativo. Valor recibido: '{valor}'")
-
-
 class Numberblock:
     # Atributos de clase = globales para TODOS los Numberblock
-    colores: List[str] = ["violeta", "rojo", "naranja", "amarillo", "verde"]
-    characters: Dict[int, List[Numberblock]] = {}
+    colores_validos: List[str] = ["violeta", "rojo", "naranja", "amarillo", "verde"]
+    registro: Dict[int, List[Numberblock]] = {}
 
-    def __init__(self, valor: int, color: str, personalidad: list):
-        self.valor = Validador.validar_positivo(valor, nombre_campo="Valor NB")
+    def __init__(self, valor: int, color: str, atributos_personalidad: list):
+        self.valor = self.validar_valor(valor)
         self.color = self.validar_color(color)
-        self.atributos = self.validar_personalidad(personalidad)
+        self.atributos_personalidad = self.validar_personalidad(atributos_personalidad)
 
         # Agregamos numberblock al diccionario
         self.registrar_nb(self)
 
+
+    def validar_valor(self, valor: int) -> int:
+        valor = Validador.validar_entero(valor, nombre_campo="Valor NB")
+        if valor < 0:
+            raise ValueError("El valor del Numberblock debe ser positivo")
+
+        # Todo validado:
+        return valor
+
     def validar_color(self, color: str) -> str:
-        if color not in Numberblock.colores:
+        if color not in Numberblock.colores_validos:
             raise ValueError("Color inválido.")
 
         # Todo validado:
         return color
 
     def validar_personalidad(self, personalidad: list) -> list:
-        if type(personalidad) != list:
+        if not isinstance(personalidad, list):
             raise ValueError("Personalidad debe tener al menos un atributo")
         if not personalidad:
             raise ValueError("Personalidad debe tener al menos un atributo")
@@ -80,12 +62,12 @@ class Numberblock:
             raise TypeError(
                 "Error en registrar_nb: el nb pasado por parámetro no es de tipo Numberblock")
 
-        if nb.valor not in self.characters:
+        if nb.valor not in self.registro:
             # creo una nueva lista vacía
-            self.characters[nb.valor] = []
+            self.registro[nb.valor] = []
 
         # agrego a la lista el objeto Numberblock
-        self.characters[nb.valor].append(nb)
+        self.registro[nb.valor].append(nb)
 
     def es_perfecto(self) -> bool:
         raiz_cuadrada = self.valor ** 0.5
@@ -101,7 +83,7 @@ class Numberblock:
         return presentacion
 
     def replicar(self) -> Numberblock:
-        return Numberblock(self.valor, self.color, self.atributos)
+        return Numberblock(self.valor, self.color, self.atributos_personalidad)
 
     def __eq__(self, other: Numberblock):
         "Método necesario para establecer la igualdad de las réplicas"
@@ -114,24 +96,24 @@ class Numberblock:
 
         suma = self.valor + other.valor
 
-        if suma not in Numberblock.characters:
+        if suma not in Numberblock.registro:
             # construyo un numberblock nuevo
-            resultado = Numberblock(suma, self.color, other.atributos)
+            resultado = Numberblock(suma, self.color, other.atributos_personalidad)
         else:
             # reutilizo el primer valor de los Numberblocks existentes con ese numero
-            resultado = Numberblock.characters[suma][0]
+            resultado = Numberblock.registro[suma][0]
             # lo registro en el diccionario:
             self.registrar_nb(resultado)
 
         return resultado
 
     def personalidad(self):
-        for attr in self.atributos:
+        for attr in self.atributos_personalidad:
             print(attr)
 
     @classmethod
     def personajes(cls):
-        personajes_ordenados = dict(sorted(cls.characters.items()))
+        personajes_ordenados = dict(sorted(cls.registro.items()))
 
         for valor in personajes_ordenados:
             replicas_nb = personajes_ordenados[valor]
@@ -141,16 +123,24 @@ class Numberblock:
 
 class Rebelblock(Numberblock):
     def __init__(self, valor: int, color: str, personalidad: list):
-        self.valor = Validador.validar_negativo(valor, nombre_campo="Valor RB")
-        if self.valor in self.characters:
+        self.valor = self.validar_valor(valor)
+        if self.valor in self.registro:
             raise ValueError("Este Rebelblock ya existe")
         self.color = self.validar_color(color)
         self.atributos = self.validar_personalidad(personalidad)
 
         super().registrar_nb(self)
 
+    def validar_valor(self, valor: int) -> int:
+        valor = Validador.validar_entero(valor, nombre_campo="Valor RB")
+        if valor >= 0:
+            raise ValueError("El valor del Rebelblock debe ser negativo")
+
+        # Todo validado:
+        return valor
+
     def validar_color(self, color: str) -> str:
-        if color in Rebelblock.colores:
+        if color in Rebelblock.colores_validos:
             raise ValueError("Color inválido.")
 
         # Todo validado:
