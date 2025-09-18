@@ -28,7 +28,7 @@ class Numberblock:
         self.color = self.validar_color(color)
         self.atributos_personalidad = self.validar_personalidad(atributos_personalidad)
 
-        # Agregamos numberblock al diccionario
+        # Agregamos Numberblock al registro
         self.registrar_nb(self)
 
 
@@ -136,7 +136,8 @@ class Rebelblock(Numberblock):
         self.color = self.validar_color(color)
         self.atributos = self.validar_personalidad(personalidad)
 
-        super().registrar_nb(self)
+        # Agregamos Rebelblock al registro
+        self.registrar_nb(self)
 
     def validar_valor(self, valor: int) -> int:
         valor = Validador.validar_entero(valor, nombre_campo="Valor RB")
