@@ -8,12 +8,12 @@ class ValidationError(Exception):
 
 class Validador:
     """
-    Clase con métodos estáticos para validaciones que retornan el valor válido
+    Clase con métodos de clase para validaciones que retornan el valor válido
     o lanzan excepciones específicas
     """
 
-    @staticmethod
-    def validar_cadena_no_vacia(valor: str, nombre_campo: str = "Campo") -> str:
+    @classmethod
+    def validar_cadena_no_vacia(cls, valor: str, nombre_campo: str = "Campo") -> str:
         """Valida que la cadena no esté vacía. Retorna la cadena limpia si es válida."""
         if not isinstance(valor, str):
             raise ValidationError(
@@ -24,8 +24,8 @@ class Validador:
 
         return valor.strip()
 
-    @staticmethod
-    def validar_entero(valor: Any, nombre_campo: str = "Campo") -> int:
+    @classmethod
+    def validar_entero(cls, valor: Any, nombre_campo: str = "Campo") -> int:
         """Valida que el valor sea un entero válido. Retorna el entero si es válido."""
         try:
             return int(valor)
@@ -33,8 +33,8 @@ class Validador:
             raise ValidationError(
                 f"{nombre_campo} debe ser un número entero válido. Valor recibido: '{valor}'")
 
-    @staticmethod
-    def validar_numero(valor: Any, nombre_campo: str = "Campo") -> float:
+    @classmethod
+    def validar_numero(cls, valor: Any, nombre_campo: str = "Campo") -> float:
         """Valida que el valor sea un número válido. Retorna el float si es válido."""
         try:
             return float(valor)
@@ -42,8 +42,8 @@ class Validador:
             raise ValidationError(
                 f"{nombre_campo} debe ser un número válido. Valor recibido: '{valor}'")
 
-    @staticmethod
-    def validar_longitud(texto: str, min_len: int = 0, max_len: int = None,
+    @classmethod
+    def validar_longitud(cls, texto: str, min_len: int = 0, max_len: int = None,
                          nombre_campo: str = "Campo") -> str:
         """Valida la longitud del texto. Retorna el texto si es válido."""
         if not isinstance(texto, str):
@@ -62,12 +62,12 @@ class Validador:
 
         return texto
 
-    @staticmethod
-    def validar_rango_numerico(valor: Union[int, float, str], min_val: Union[int, float] = None,
+    @classmethod
+    def validar_rango_numerico(cls, valor: Union[int, float, str], min_val: Union[int, float] = None,
                                max_val: Union[int, float] = None, nombre_campo: str = "Campo") -> float:
         """Valida que el número esté en el rango especificado. Retorna el número si es válido."""
         # Primero validar que sea un número
-        numero = Validador.validar_numero(valor, nombre_campo)
+        numero = cls.validar_numero(valor, nombre_campo)
 
         if min_val is not None and numero < min_val:
             raise ValidationError(
@@ -79,8 +79,8 @@ class Validador:
 
         return numero
 
-    @staticmethod
-    def validar_solo_letras(texto: str, nombre_campo: str = "Campo") -> str:
+    @classmethod
+    def validar_solo_letras(cls, texto: str, nombre_campo: str = "Campo") -> str:
         """Valida que el texto contenga solo letras. Retorna el texto si es válido."""
         if not isinstance(texto, str):
             raise ValidationError(
@@ -92,8 +92,8 @@ class Validador:
 
         return texto.strip()
 
-    @staticmethod
-    def validar_solo_numeros(texto: str, nombre_campo: str = "Campo") -> str:
+    @classmethod
+    def validar_solo_numeros(cls, texto: str, nombre_campo: str = "Campo") -> str:
         """Valida que el texto contenga solo números. Retorna el texto si es válido."""
         if not isinstance(texto, str):
             raise ValidationError(
@@ -105,8 +105,8 @@ class Validador:
 
         return texto
 
-    @staticmethod
-    def validar_alfanumerico(texto: str, nombre_campo: str = "Campo") -> str:
+    @classmethod
+    def validar_alfanumerico(cls, texto: str, nombre_campo: str = "Campo") -> str:
         """Valida que el texto sea alfanumérico. Retorna el texto si es válido."""
         if not isinstance(texto, str):
             raise ValidationError(
@@ -118,12 +118,12 @@ class Validador:
 
         return texto
 
-    @staticmethod
-    def validar_entero_en_rango(valor: Any, min_val: int = None, max_val: int = None,
+    @classmethod
+    def validar_entero_en_rango(cls, valor: Any, min_val: int = None, max_val: int = None,
                                 nombre_campo: str = "Campo") -> int:
         """Valida que sea un entero en el rango especificado. Retorna el entero si es válido."""
         # Primero validar que sea entero
-        entero = Validador.validar_entero(valor, nombre_campo)
+        entero = cls.validar_entero(valor, nombre_campo)
 
         if min_val is not None and entero < min_val:
             raise ValidationError(
