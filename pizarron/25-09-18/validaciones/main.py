@@ -19,8 +19,8 @@ def main():
     try:
         producto = Producto("ABC123", 120.54, 10)
         print(f"✅ Producto creado: {producto.sku}, precio - {producto.precio}, stock - {producto.stock}")
-    except:
-        print(f"❌ Error al crear prodcuto: {e}")
+    except ValidationError as e:
+        print(f"❌ Error al crear producto: {e}")
 
     try:
         producto_erroneo = Producto("ABC123", 120, -1)
