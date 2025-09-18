@@ -1,10 +1,12 @@
 # solo para los type hints, no es necesario.
 from __future__ import annotations
+from math import isqrt
 from typing import Any, Dict, List
 
 
 class ValidationError(Exception):
     """Excepción personalizada para errores de validación"""
+
     pass
 
 
@@ -13,10 +15,10 @@ class Validador:
     def validar_entero(cls, valor: Any, nombre_campo: str = "Campo") -> int:
         """Valida que el valor sea un entero válido. Retorna el entero si es válido."""
         if not isinstance(valor, int):
-            raise ValidationError(
-                f"{nombre_campo} debe ser un número entero válido. Valor recibido: '{valor}'")
+            raise ValidationError(f"{nombre_campo} debe ser un número entero válido. Valor recibido: '{valor}'")
 
         return int(valor)
+
 
 class Numberblock:
     # Atributos de clase = globales para TODOS los Numberblock
@@ -31,20 +33,20 @@ class Numberblock:
         # Agregamos Numberblock al registro
         self.registrar_nb(self)
 
-
     def validar_valor(self, valor: int) -> int:
         valor = Validador.validar_entero(valor, nombre_campo="Valor NB")
         if valor < 0:
             raise ValueError("El valor del Numberblock debe ser positivo")
 
-        # Todo validado:
+        # Todo validado: retorno el entero positivo
         return valor
 
     def validar_color(self, color: str) -> str:
         if color not in Numberblock.colores_validos:
+            # Inválido si NO está en la lista de colores válidos
             raise ValueError("Color inválido.")
 
-        # Todo validado:
+        # Todo validado: retorno la string
         return color
 
     def validar_personalidad(self, personalidad: list) -> list:
@@ -53,31 +55,30 @@ class Numberblock:
         if not personalidad:
             raise ValueError("Personalidad debe tener al menos un atributo")
 
-        # Todo validado:
+        # Todo validado: retorno la lista
         return personalidad
-
 
     def registrar_nb(self, nb: Numberblock):
         if not isinstance(nb, Numberblock):
-            raise TypeError(
-                "Error en registrar_nb: el nb pasado por parámetro no es de tipo Numberblock")
+            raise TypeError("Error en registrar_nb: el nb pasado por parámetro no es de tipo Numberblock")
 
-        if nb.valor not in self.registro:
-            # creo una nueva lista vacía
-            self.registro[nb.valor] = []
+        # Extraigo el numero del Numberblock a registrar
+        numero = nb.valor
+        if numero not in self.registro:
+            # Creo una nueva lista vacía
+            self.registro[numero] = []
 
-        # agrego a la lista el objeto Numberblock
-        self.registro[nb.valor].append(nb)
+        # Agrego a la lista el objeto Numberblock
+        self.registro[numero].append(nb)
 
     def es_perfecto(self) -> bool:
-        raiz_cuadrada = self.valor ** 0.5
-
-        # Retorna True si la raiz cuadrada del valor es un número entero
-        return raiz_cuadrada == int(raiz_cuadrada)
+        raiz_entera = isqrt(self.valor)
+        # Retorno True si el resultado de elevar al cuadrado la raiz cuadrada entera
+        # y el valor original son iguales
+        return raiz_entera**2 == self.valor
 
     def replicar(self) -> Numberblock:
         return Numberblock(self.valor, self.color, self.atributos_personalidad)
-
 
     def combinar_con(self, other: Numberblock) -> Numberblock:
         if not isinstance(other, Numberblock):
@@ -104,10 +105,10 @@ class Numberblock:
     def personajes(cls) -> None:
         personajes_ordenados = dict(sorted(cls.registro.items()))
 
-        for valor in personajes_ordenados:
-            replicas_nb = personajes_ordenados[valor]
+        for numero in personajes_ordenados:
+            replicas_nb = personajes_ordenados[numero]
             nb_original = replicas_nb[0]
-            print(f"#{valor}: '{nb_original}' - Réplicas: {len(replicas_nb)}")
+            print(f"#{numero}: '{nb_original}' - Réplicas: {len(replicas_nb)}")
 
     def __repr__(self) -> str:
         presentacion = f"Soy el número {self.valor}, soy {self.color}."
@@ -176,6 +177,7 @@ def prueba_1():
 def prueba_2():
     nb_invalido = Numberblock(1.14, "rojo", ["lindo", "amable"])
 
+
 def prueba_3():
     nb_3 = Numberblock(3, "amarillo", ["curioso", "entusiasta"])
     nb_4 = Numberblock(4, "verde", ["amable", "bueno"])
@@ -185,6 +187,7 @@ def prueba_3():
     Numberblock.personajes()
 
     nb_7.personalidad()
+
 
 def prueba_4():
     nb_7 = Numberblock(7, "naranja", ["honrado"])
@@ -198,14 +201,17 @@ def prueba_4():
 
     nb_7_comb.personalidad()
 
+
 def prueba_5():
     rb_invalido = Rebelblock(1, "violeta", ["maquiavelico"])
+
 
 def prueba_6():
     rebelblock = Rebelblock(-1, "negro", ["triste"])
     rebelblock.replicar()
 
     Rebelblock.personajes()
+
 
 if __name__ == "__main__":
     prueba_6()
