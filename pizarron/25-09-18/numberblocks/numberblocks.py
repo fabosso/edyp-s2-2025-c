@@ -58,7 +58,7 @@ class Numberblock:
         # Todo validado: retorno la lista
         return personalidad
 
-    def registrar_nb(self, nb: Numberblock):
+    def registrar_nb(self, nb: Numberblock) -> None:
         if not isinstance(nb, Numberblock):
             raise TypeError("Error en registrar_nb: el nb pasado por parámetro no es de tipo Numberblock")
 
@@ -88,14 +88,13 @@ class Numberblock:
 
         if suma not in Numberblock.registro:
             # construyo un numberblock nuevo
-            resultado = Numberblock(suma, self.color, other.atributos_personalidad)
-        else:
-            # reutilizo el primer valor de los Numberblocks existentes con ese numero
-            resultado = Numberblock.registro[suma][0]
-            # lo registro en el diccionario:
-            self.registrar_nb(resultado)
-
-        return resultado
+            return Numberblock(suma, self.color, other.atributos_personalidad)
+        
+        # reutilizo el primer valor de los Numberblocks existentes con ese numero
+        resultado = Numberblock.registro[suma][0]
+        # lo registro en el diccionario:
+        self.registrar_nb(resultado)
+        return resultado.replicar()
 
     def personalidad(self) -> None:
         for attr in self.atributos_personalidad:
