@@ -84,9 +84,7 @@ class Stack:
         Returns:
             str: La representación de la pila como una lista.
         """
-        # --- CORRECCIÓN ---
-        # La implementación original tenía un error que no imprimía el primer
-        # elemento (la base de la pila). Esta versión es más clara y correcta.
+
         items = []
         aux = self.top
         while aux is not None:
